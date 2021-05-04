@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/PlanetCheckbox.gd" type="Script" id=1]
+
+[node name="PlanetCheckbox" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1852.0
+margin_bottom = -1056.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_top = 5.0
+margin_right = 40.0
+margin_bottom = 19.0
+text = "Planet"
+
+[node name="CheckBox" type="CheckBox" parent="."]
+margin_left = 44.0
+margin_right = 68.0
+margin_bottom = 24.0
+size_flags_horizontal = 10
+pressed = true
+
+[connection signal="toggled" from="CheckBox" to="." method="_on_CheckBox_toggled"]

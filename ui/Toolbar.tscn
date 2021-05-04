@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://UI/Toolbar.gd" type="Script" id=1]
+[ext_resource path="res://UI/DateBox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=3]
+[ext_resource path="res://planets/SolarSystem.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/PlanetVisibility.tscn" type="PackedScene" id=5]
+
+[node name="Toolbar" type="MarginContainer"]
+margin_right = 102.0
+margin_bottom = 87.0
+mouse_filter = 1
+theme = ExtResource( 3 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 378.0
+margin_bottom = 768.0
+
+[node name="DateBox" parent="HBoxContainer" instance=ExtResource( 2 )]
+margin_right = 378.0
+margin_bottom = 178.0
+
+[node name="PlanetVisibility" parent="HBoxContainer" instance=ExtResource( 5 )]
+margin_top = 182.0
+margin_right = 118.0
+margin_bottom = 508.0
+custom_constants/separation = -6
+
+[node name="ViewportContainer" type="ViewportContainer" parent="HBoxContainer"]
+margin_top = 512.0
+margin_right = 378.0
+margin_bottom = 768.0
+mouse_filter = 2
+input_pass_on_modal_close_click = false
+
+[node name="Viewport" type="Viewport" parent="HBoxContainer/ViewportContainer"]
+size = Vector2( 256, 256 )
+own_world = true
+transparent_bg = true
+render_target_update_mode = 3
+
+[node name="SolarSystem" parent="HBoxContainer/ViewportContainer/Viewport" instance=ExtResource( 4 )]

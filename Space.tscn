@@ -1,0 +1,92 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Space.gd" type="Script" id=1]
+[ext_resource path="res://planets/Earth.tscn" type="PackedScene" id=2]
+[ext_resource path="res://planets/Planet3D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Camera.gd" type="Script" id=4]
+[ext_resource path="res://assets/art/gridlines.png" type="Texture" id=5]
+[ext_resource path="res://assets/materials/Jupiter.tres" type="Material" id=6]
+[ext_resource path="res://assets/materials/Mars.tres" type="Material" id=7]
+[ext_resource path="res://assets/materials/Uranus.tres" type="Material" id=8]
+[ext_resource path="res://assets/materials/Sun.tres" type="Material" id=9]
+[ext_resource path="res://assets/materials/Neptune.tres" type="Material" id=10]
+[ext_resource path="res://assets/materials/Mercury.tres" type="Material" id=11]
+[ext_resource path="res://assets/materials/Venus.tres" type="Material" id=12]
+[ext_resource path="res://assets/materials/Saturn.tres" type="Material" id=13]
+
+[sub_resource type="SphereMesh" id=9]
+flip_faces = true
+radius = 100.0
+height = 200.0
+
+[sub_resource type="SpatialMaterial" id=10]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource( 5 )
+
+[node name="Space" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 35 )
+current = true
+size = 10.0
+script = ExtResource( 4 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+light_color = Color( 1, 0.960784, 0.854902, 1 )
+light_energy = 3.33
+light_indirect_energy = 1.5
+
+[node name="Earth" parent="." instance=ExtResource( 2 )]
+
+[node name="Mars" parent="." instance=ExtResource( 3 )]
+planet = "mars"
+m = ExtResource( 7 )
+radius = 0.3
+distance = 7.0
+
+[node name="Mercury" parent="." instance=ExtResource( 3 )]
+planet = "mercury"
+m = ExtResource( 11 )
+radius = 0.2
+distance = 6.0
+
+[node name="Venus" parent="." instance=ExtResource( 3 )]
+planet = "venus"
+m = ExtResource( 12 )
+radius = 0.4
+distance = 6.5
+
+[node name="Jupiter" parent="." instance=ExtResource( 3 )]
+planet = "jupiter"
+m = ExtResource( 6 )
+radius = 0.8
+
+[node name="Saturn" parent="." instance=ExtResource( 3 )]
+planet = "saturn"
+m = ExtResource( 13 )
+radius = 0.7
+distance = 9.0
+
+[node name="Uranus" parent="." instance=ExtResource( 3 )]
+planet = "uranus"
+m = ExtResource( 8 )
+distance = 10.0
+
+[node name="Neptune" parent="." instance=ExtResource( 3 )]
+planet = "neptune"
+m = ExtResource( 10 )
+distance = 11.0
+
+[node name="Sun" parent="." instance=ExtResource( 3 )]
+planet = "sun"
+m = ExtResource( 9 )
+radius = 1.0
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.91706, 0.398749, 0, -0.398749, 0.91706, 0, 0, 0 )
+visible = false
+mesh = SubResource( 9 )
+material/0 = SubResource( 10 )

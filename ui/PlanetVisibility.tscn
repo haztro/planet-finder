@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/PlanetCheckbox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/PlanetVisibility.gd" type="Script" id=2]
+
+[node name="PlanetVisibility" type="VBoxContainer"]
+margin_right = 69.0
+margin_bottom = 192.0
+size_flags_horizontal = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SunCheckbox" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 69.0
+margin_bottom = 24.0
+text = "Sun"
+
+[node name="MercuryCheckbox" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 28.0
+margin_right = 69.0
+margin_bottom = 52.0
+text = "Mercury"
+
+[node name="VenusCheckbox" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 56.0
+margin_right = 69.0
+margin_bottom = 80.0
+text = "Venus"
+
+[node name="MarsCheckbox" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 84.0
+margin_right = 69.0
+margin_bottom = 108.0
+text = "Mars"
+
+[node name="JupiterCheckbox" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 112.0
+margin_right = 69.0
+margin_bottom = 136.0
+text = "Jupiter"
+
+[node name="SaturnCheckbox" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 140.0
+margin_right = 69.0
+margin_bottom = 164.0
+text = "Saturn"
+
+[node name="UranusCheckbox" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 168.0
+margin_right = 69.0
+margin_bottom = 192.0
+text = "Uranus"
+
+[node name="NeptuneCheckbox" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 196.0
+margin_right = 69.0
+margin_bottom = 220.0
+text = "Neptune"
+
+[connection signal="toggled" from="SunCheckbox" to="." method="_on_SunCheckbox_toggled"]
+[connection signal="toggled" from="MercuryCheckbox" to="." method="_on_MercuryCheckbox_toggled"]
+[connection signal="toggled" from="VenusCheckbox" to="." method="_on_VenusCheckbox_toggled"]
+[connection signal="toggled" from="MarsCheckbox" to="." method="_on_MarsCheckbox_toggled"]
+[connection signal="toggled" from="JupiterCheckbox" to="." method="_on_JupiterCheckbox_toggled"]
+[connection signal="toggled" from="SaturnCheckbox" to="." method="_on_SaturnCheckbox_toggled"]
+[connection signal="toggled" from="UranusCheckbox" to="." method="_on_UranusCheckbox_toggled"]
+[connection signal="toggled" from="NeptuneCheckbox" to="." method="_on_NeptuneCheckbox_toggled"]

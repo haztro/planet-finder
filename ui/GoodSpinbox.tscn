@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/GoodSpinbox.gd" type="Script" id=1]
+[ext_resource path="res://assets/art/arrow_up_normal.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/arrow_down_normal.png" type="Texture" id=3]
+
+[node name="GoodSpinbox" type="HBoxContainer"]
+margin_right = 42.0
+margin_bottom = 64.0
+size_flags_horizontal = 4
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+margin_right = 10.0
+margin_bottom = 64.0
+custom_constants/separation = 10
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer2"]
+margin_right = 10.0
+margin_bottom = 8.0
+rect_pivot_offset = Vector2( 10, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+texture_normal = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+margin_left = 1.0
+margin_top = 20.0
+margin_right = 9.0
+margin_bottom = 34.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "0"
+
+[node name="TextureButton2" type="TextureButton" parent="VBoxContainer2"]
+margin_top = 51.0
+margin_right = 10.0
+margin_bottom = 59.0
+rect_pivot_offset = Vector2( 10, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture_normal = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.001
+
+[node name="DelayTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="button_down" from="VBoxContainer2/TextureButton" to="." method="_on_TextureButton_button_down"]
+[connection signal="button_up" from="VBoxContainer2/TextureButton" to="." method="_on_TextureButton_button_up"]
+[connection signal="mouse_entered" from="VBoxContainer2/Label" to="." method="_on_Label_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer2/Label" to="." method="_on_Label_mouse_exited"]
+[connection signal="button_down" from="VBoxContainer2/TextureButton2" to="." method="_on_TextureButton2_button_down"]
+[connection signal="button_up" from="VBoxContainer2/TextureButton2" to="." method="_on_TextureButton2_button_up"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="DelayTimer" to="." method="_on_DelayTimer_timeout"]

@@ -1,0 +1,166 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/ScrollBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/DateBox.gd" type="Script" id=2]
+
+[node name="DateBox" type="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 18
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+margin_right = 176.0
+margin_bottom = 32.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2"]
+margin_right = 27.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer"]
+margin_right = 27.0
+margin_bottom = 14.0
+text = "Year"
+
+[node name="YearBox" parent="HBoxContainer2/VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 27.0
+margin_bottom = 32.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2"]
+margin_left = 31.0
+margin_right = 59.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer2"]
+margin_right = 28.0
+margin_bottom = 14.0
+text = "Mon"
+
+[node name="MonthBox" parent="HBoxContainer2/VBoxContainer2" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 28.0
+margin_bottom = 32.0
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer2"]
+margin_left = 63.0
+margin_right = 87.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer3"]
+margin_right = 24.0
+margin_bottom = 14.0
+text = "Day"
+
+[node name="DayBox" parent="HBoxContainer2/VBoxContainer3" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 24.0
+margin_bottom = 32.0
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="HBoxContainer2"]
+margin_left = 91.0
+margin_right = 122.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer4"]
+margin_right = 31.0
+margin_bottom = 14.0
+text = "Hour"
+
+[node name="HourBox" parent="HBoxContainer2/VBoxContainer4" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 31.0
+margin_bottom = 32.0
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="HBoxContainer2"]
+margin_left = 126.0
+margin_right = 150.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer5"]
+margin_right = 24.0
+margin_bottom = 14.0
+text = "Min"
+
+[node name="MinuteBox" parent="HBoxContainer2/VBoxContainer5" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 24.0
+margin_bottom = 32.0
+
+[node name="VBoxContainer6" type="VBoxContainer" parent="HBoxContainer2"]
+margin_left = 154.0
+margin_right = 176.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer6"]
+margin_right = 22.0
+margin_bottom = 14.0
+text = "Sec"
+
+[node name="SecondBox" parent="HBoxContainer2/VBoxContainer6" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 22.0
+margin_bottom = 32.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_top = 50.0
+margin_right = 176.0
+margin_bottom = 82.0
+custom_constants/separation = 16
+
+[node name="VBoxContainer7" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 52.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer7"]
+margin_right = 52.0
+margin_bottom = 14.0
+text = "Latitude"
+
+[node name="LatBox" parent="HBoxContainer/VBoxContainer7" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 52.0
+margin_bottom = 32.0
+
+[node name="VBoxContainer8" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 68.0
+margin_right = 131.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer8"]
+margin_right = 63.0
+margin_bottom = 14.0
+text = "Longitude"
+
+[node name="LonBox" parent="HBoxContainer/VBoxContainer8" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 63.0
+margin_bottom = 32.0
+
+[connection signal="value_changed" from="HBoxContainer2/VBoxContainer/YearBox" to="." method="_on_YearBox_value_changed"]
+[connection signal="value_changed" from="HBoxContainer2/VBoxContainer2/MonthBox" to="." method="_on_MonthBox_value_changed"]
+[connection signal="value_changed" from="HBoxContainer2/VBoxContainer3/DayBox" to="." method="_on_DayBox_value_changed"]
+[connection signal="value_changed" from="HBoxContainer2/VBoxContainer4/HourBox" to="." method="_on_HourBox_value_changed"]
+[connection signal="value_changed" from="HBoxContainer2/VBoxContainer5/MinuteBox" to="." method="_on_MinuteBox_value_changed"]
+[connection signal="value_changed" from="HBoxContainer2/VBoxContainer6/SecondBox" to="." method="_on_SecondBox_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer7/LatBox" to="." method="_on_LatBox_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer8/LonBox" to="." method="_on_LonBox_value_changed"]

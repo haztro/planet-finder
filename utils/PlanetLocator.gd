@@ -22,7 +22,9 @@ var orbital_elements= {
 	"sun":[0, 0, 0, 0, 282.9404, 0.0000470935, 1.0, 0, 0.016709, 0.000000001151, 
 		356.047, 0.9856002585, 0],
 	"moon":[125.1228, -0.0529538083, 5.1454, 0, 318.0634, 0.1643573223, 60.2666, 
-		0, 0.0549, 0, 115.3654, 13.0649929509, 0]
+		0, 0.0549, 0, 115.3654, 13.0649929509, 0],
+	"earth":[-11.26, 0, 0, 0, 282.9404, 0.0000470935, -1.0, 0, 0.016709, 0.000000001151, 
+		356.047, 0.9856002585, 0]
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -68,7 +70,11 @@ func rev(x: float) -> float:
 		new_x += 360
 	return new_x
 
-func get_day_number(date) -> float:
+func get_day_number(date, longitude: float) -> float:
+	# Convert time to UTC time based on longitude
+	var time_difference: float = longitude / 15.0
+	date["hour"] = fmod((date["hour"] - time_difference), 24.0)
+	
 	var Y: int = date["year"]
 	var M: int = date["month"]
 	var D: int = date["day"]
@@ -80,28 +86,7 @@ func get_day_number(date) -> float:
 
 	return dn + UT / 24.0
 
-func get_azimuth_altitude(date, d: float, RA: float, decl: float, lat: float, lon: float, he) -> Array:
-	# Determine sidereal time,azimuth,altitude. 
-	var ut: float = date["hour"] + date["minute"] / 60.0 + date["second"] / 3600.0
-	var L: float = (356.0470 + 0.9856002585 * d) + (282.9404 + 0.0000470935 * d) # Sun's mean longitude
-	var gmst0: float = (L + 180) / 15.0
-	var sidetime: float = gmst0 + ut + lon / 15.0
-
-	var hour_angle: float = rev((sidetime*15) - RA)
-	var x: float = cosd(hour_angle) * cosd(decl)
-	var y: float = sind(hour_angle) * cosd(decl)
-	var z: float = sind(decl)
-
-	var xhor: float = x * sind(lat) - z * cosd(lat)
-	var yhor: float = y
-	var zhor: float = x * cosd(lat) + z * sind(lat)
-
-	var azimuth: float = atan2d(yhor, xhor) + 180
-	var altitude: float = atan2d(zhor, sqrt(xhor*xhor + yhor*yhor))
-	
-	return [d, RA, decl, azimuth, altitude, asind(zhor), he]  #[azimuth, altitude]
-
-func get_heliocentric_ecliptic_coordinates(body, d: float, date, latitude: float, longitude: float) -> Array:
+func get_heliocentric_ecliptic_coordinates(body) -> Vector3:
 	body["M"] = rev(body["M"])
 	
 	var E0: float = body["M"] + (180.0 / PI) * body["e"] * sind(body["M"]) * (1 + body["e"] * cosd(body["M"]))
@@ -119,28 +104,20 @@ func get_heliocentric_ecliptic_coordinates(body, d: float, date, latitude: float
 	var y_e: float = r * (sind(body["N"]) * cosd(v + body["w"]) + cosd(body["N"]) * sind(v + body["w"]) * cosd(body["i"]))
 	var z_e: float = r * sind(v + body["w"]) * sind(body["i"])
 	
-	# Polar coordinates (ecliptic) - NOT USED IN CALC
-	var lon: float = atan2d(y_e, x_e)
-	var lat: float = atan2d(z_e, sqrt(x_e * x_e + y_e * y_e))
-	r = sqrt(x_e * x_e + y_e * y_e + z_e * z_e)
+#	# Polar coordinates (ecliptic) - NOT USED IN CALC
+#	var lon: float = atan2d(y_e, x_e)
+#	var lat: float = atan2d(z_e, sqrt(x_e * x_e + y_e * y_e))
+#	r = sqrt(x_e * x_e + y_e * y_e + z_e * z_e)
 	
-	return [x_e, y_e, z_e]
+	return Vector3(x_e, y_e, z_e)
 
-func compute_body_position(body, d: float, date, latitude: float, longitude: float) -> Array:
-	var he = get_heliocentric_ecliptic_coordinates(body, d, date, latitude, longitude)
-	var x_e: float = he[0]
-	var y_e: float = he[1]
-	var z_e: float = he[2]
+func get_RA_decl(day_number: float, ecliptic_coords: Vector3) -> Array:
+	var x_e: float = ecliptic_coords.x
+	var y_e: float = ecliptic_coords.y
+	var z_e: float = ecliptic_coords.z
 
 	# COMPUTE SUN POSITION
-	var sun = {}
-	sun["N"] = orbital_elements["sun"][0] + orbital_elements["sun"][1] * d
-	sun["i"] = orbital_elements["sun"][2] + orbital_elements["sun"][3] * d
-	sun["w"] = orbital_elements["sun"][4] + orbital_elements["sun"][5] * d
-	sun["a"] = orbital_elements["sun"][6] + orbital_elements["sun"][7] * d
-	sun["e"] = orbital_elements["sun"][8] + orbital_elements["sun"][9] * d
-	sun["M"] = orbital_elements["sun"][10] + orbital_elements["sun"][11] * d
-	sun["L"] = orbital_elements["sun"][12]
+	var sun = get_orbital_elements("sun", day_number)
 
 	sun["M"] = rev(sun["M"])
 	
@@ -173,24 +150,41 @@ func compute_body_position(body, d: float, date, latitude: float, longitude: flo
 	var decl: float = atan2d(z_eq, sqrt(x_eq * x_eq + y_eq * y_eq))
 
 #	print("%f, %f, %f" % [RA, decl, rg])
+	return [RA, decl]
+	
+#	return get_azimuth_altitude(date, d, RA, decl, latitude, longitude, [x_e, y_e, z_e])
 
-	return get_azimuth_altitude(date, d, RA, decl, latitude, longitude, [x_e, y_e, z_e])
+func get_azimuth_altitude(body, date, d: float, RA: float, decl: float, latitude: float, longitude: float) -> Array:
+	# Determine sidereal time,azimuth,altitude. 
+	var ut: float = date["hour"] + date["minute"] / 60.0 + date["second"] / 3600.0
+	var L: float = (356.0470 + 0.9856002585 * d) + (282.9404 + 0.0000470935 * d) # Sun's mean longitude
+	var gmst0: float = (L + 180) / 15.0
+	var sidetime: float = gmst0 + ut + longitude / 15.0
 
+	var hour_angle: float = rev((sidetime*15) - RA)
+	var x: float = cosd(hour_angle) * cosd(decl)
+	var y: float = sind(hour_angle) * cosd(decl)
+	var z: float = sind(decl)
 
-func get_planet(planet: String, date, latitude: float, longitude: float) -> Array:
-	# Convert time to UTC time based on longitude
-	var time_difference: float = longitude / 15.0
-	date["hour"] = fmod((date["hour"] - time_difference), 24.0)
+	var xhor: float = x * sind(latitude) - z * cosd(latitude)
+	var yhor: float = y
+	var zhor: float = x * cosd(latitude) + z * sind(latitude)
 
-	var d: float = get_day_number(date);
+	var azimuth: float = atan2d(yhor, xhor) + 180
+	var altitude: float = atan2d(zhor, sqrt(xhor*xhor + yhor*yhor))
+	
+	return [azimuth, altitude] 
 
+func get_orbital_elements(planet: String, day_number):
 	var body = {}
-	body["N"] = orbital_elements[planet][0] + orbital_elements[planet][1] * d
-	body["i"] = orbital_elements[planet][2] + orbital_elements[planet][3] * d
-	body["w"] = orbital_elements[planet][4] + orbital_elements[planet][5] * d
-	body["a"] = orbital_elements[planet][6] + orbital_elements[planet][7] * d
-	body["e"] = orbital_elements[planet][8] + orbital_elements[planet][9] * d
-	body["M"] = orbital_elements[planet][10] + orbital_elements[planet][11] * d
+	body["N"] = orbital_elements[planet][0] + orbital_elements[planet][1] * day_number
+	body["i"] = orbital_elements[planet][2] + orbital_elements[planet][3] * day_number
+	body["w"] = orbital_elements[planet][4] + orbital_elements[planet][5] * day_number
+	body["a"] = orbital_elements[planet][6] + orbital_elements[planet][7] * day_number
+	body["e"] = orbital_elements[planet][8] + orbital_elements[planet][9] * day_number
+	body["M"] = orbital_elements[planet][10] + orbital_elements[planet][11] * day_number
 	body["L"] = orbital_elements[planet][12]
+	return body
+	
+	
 
-	return compute_body_position(body, d, date, latitude, longitude);

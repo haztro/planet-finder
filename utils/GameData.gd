@@ -14,6 +14,20 @@ var mouse_over_gui = 0
 var selected_planet = null
 var planets = {}
 
+var sun_texture = preload("res://assets/art/sun.jpg")
+var mercury_texture = preload("res://assets/art/mercury.jpg")
+var venus_texture = preload("res://assets/art/venus.jpg")
+var earth_texture = preload("res://assets/art/earth_day.jpg")
+var mars_texture = preload("res://assets/art/mars.jpg")
+var jupiter_texture = preload("res://assets/art/jupiter.jpg")
+var saturn_texture = preload("res://assets/art/saturn.jpg")
+var uranus_texture = preload("res://assets/art/uranus.jpg")
+var neptune_texture = preload("res://assets/art/neptune.jpg")
+
+var planet_textures = {"sun" : sun_texture, "mercury" : mercury_texture, "venus" : venus_texture, "earth" : earth_texture,
+						"mars" : mars_texture, "jupiter" : jupiter_texture, "saturn" : saturn_texture,
+						"uranus" : uranus_texture, "neptune" : neptune_texture}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	date = DateTime.new()

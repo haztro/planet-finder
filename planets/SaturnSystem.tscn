@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://planets/Planet3D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://planets/SaturnSystem.gd" type="Script" id=2]
+[ext_resource path="res://assets/art/saturn_ring.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/ring.obj" type="ArrayMesh" id=4]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+params_cull_mode = 2
+albedo_color = Color( 3, 3, 3, 1 )
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( -1, 1, 1 )
+
+[node name="SaturnSystem" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="." index="1"]
+transform = Transform( 1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0 )
+mesh = ExtResource( 4 )
+material/0 = SubResource( 1 )

@@ -1,15 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://planets/SolarSystem.gd" type="Script" id=1]
-[ext_resource path="res://planets/EclipticPlanet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/materials/Jupiter.tres" type="Material" id=3]
-[ext_resource path="res://assets/materials/Mars.tres" type="Material" id=4]
-[ext_resource path="res://assets/materials/Uranus.tres" type="Material" id=5]
-[ext_resource path="res://assets/materials/Sun.tres" type="Material" id=6]
-[ext_resource path="res://assets/materials/Neptune.tres" type="Material" id=7]
-[ext_resource path="res://assets/materials/Mercury.tres" type="Material" id=8]
-[ext_resource path="res://assets/materials/Venus.tres" type="Material" id=9]
-[ext_resource path="res://assets/materials/Saturn.tres" type="Material" id=10]
+[ext_resource path="res://planets/PlanetSystem.tscn" type="PackedScene" id=2]
+[ext_resource path="res://planets/PlanetSystemSun.gd" type="Script" id=3]
+[ext_resource path="res://planets/SaturnSystem.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Camera.gd" type="Script" id=11]
 
 [sub_resource type="SpatialMaterial" id=1]
@@ -27,42 +21,59 @@ script = ExtResource( 11 )
 is_main = false
 
 [node name="Sun" parent="." instance=ExtResource( 2 )]
-m = ExtResource( 6 )
+script = ExtResource( 3 )
+planet = "sun"
 distance = 0.0
 
 [node name="Mercury" parent="." instance=ExtResource( 2 )]
-m = ExtResource( 8 )
 planet = "mercury"
-
-[node name="Venus" parent="." instance=ExtResource( 2 )]
-m = ExtResource( 9 )
-planet = "venus"
 distance = 2.0
 
-[node name="Mars" parent="." instance=ExtResource( 2 )]
-m = ExtResource( 4 )
-planet = "mars"
+[node name="Venus" parent="." instance=ExtResource( 2 )]
+planet = "venus"
+distance = 3.0
+
+[node name="Earth" parent="." instance=ExtResource( 2 )]
+planet = "earth"
+radius = 0.6
 distance = 4.0
 
-[node name="Jupiter" parent="." instance=ExtResource( 2 )]
-m = ExtResource( 3 )
-planet = "jupiter"
+[node name="Mars" parent="." instance=ExtResource( 2 )]
+planet = "mars"
 distance = 5.0
 
-[node name="Saturn" parent="." instance=ExtResource( 2 )]
-m = ExtResource( 10 )
-planet = "saturn"
+[node name="Jupiter" parent="." instance=ExtResource( 2 )]
+planet = "jupiter"
+radius = 0.7
 distance = 6.0
 
-[node name="Uranus" parent="." instance=ExtResource( 2 )]
-m = ExtResource( 5 )
-planet = "uranus"
+[node name="Saturn" parent="." instance=ExtResource( 4 )]
+planet = "saturn"
+radius = 0.6
 distance = 7.0
 
+[node name="Uranus" parent="." instance=ExtResource( 2 )]
+planet = "uranus"
+radius = 0.6
+
 [node name="Neptune" parent="." instance=ExtResource( 2 )]
-m = ExtResource( 7 )
 planet = "neptune"
-distance = 8.0
+radius = 0.6
+distance = 9.0
 
 [node name="Draw" type="ImmediateGeometry" parent="."]
 material_override = SubResource( 1 )
+
+[node name="DirectionalLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
+light_energy = 3.0
+shadow_enabled = true
+shadow_bias = 0.5
+omni_range = 20.0
+
+[node name="DirectionalLight2" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0 )
+light_energy = 3.0
+shadow_enabled = true
+shadow_bias = 0.5
+omni_range = 20.0

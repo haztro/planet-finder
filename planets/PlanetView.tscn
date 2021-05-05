@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://planets/Planet3D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://planets/PlanetView.gd" type="Script" id=2]
+
+[node name="PlanetView" instance=ExtResource( 1 )]
+script = ExtResource( 2 )

@@ -6,14 +6,13 @@ var planets = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	planets = [$Mercury, $Venus, $Mars, $Jupiter, $Saturn, $Uranus, $Neptune]
+	planets = [$Mercury, $Venus, $Earth, $Mars, $Jupiter, $Saturn, $Uranus, $Neptune]
 	call_deferred("draw_orbit")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
+func _process(delta):
+	pass
+	
 func draw_orbit():
 	get_node("Draw").clear()
 	for c in planets:

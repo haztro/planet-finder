@@ -1,166 +1,365 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://ui/ScrollBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/DateBox.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/font_heading.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=4]
+[ext_resource path="res://assets/materials/panel.tres" type="StyleBox" id=5]
+[ext_resource path="res://assets/materials/panel_heading.tres" type="StyleBox" id=6]
+[ext_resource path="res://assets/materials/panel_text.tres" type="StyleBox" id=7]
+[ext_resource path="res://assets/art/restart.png" type="Texture" id=8]
+[ext_resource path="res://assets/art/play_button.png" type="Texture" id=9]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.0862745, 0.0862745, 0.105882, 0.85098 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.0784314, 0.0784314, 0.0901961, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 30
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="DateBox" type="VBoxContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
-custom_constants/separation = 18
+margin_right = 267.0
+margin_bottom = 282.0
+theme = ExtResource( 4 )
+custom_constants/separation = 10
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
-margin_right = 176.0
-margin_bottom = 32.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 363.0
+margin_bottom = 160.0
+custom_constants/separation = -2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2"]
-margin_right = 27.0
-margin_bottom = 32.0
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer"]
+margin_right = 363.0
+margin_bottom = 44.0
+custom_styles/panel = SubResource( 1 )
 
-[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer"]
-margin_right = 27.0
-margin_bottom = 14.0
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer3"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 353.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 3 )
+text = "Date"
+
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer"]
+margin_top = 42.0
+margin_right = 363.0
+margin_bottom = 160.0
+custom_styles/panel = ExtResource( 5 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer4"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 353.0
+margin_bottom = 108.0
+custom_constants/separation = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer"]
+margin_right = 343.0
+margin_bottom = 63.0
+size_flags_horizontal = 0
+custom_constants/separation = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2"]
+margin_right = 70.0
+margin_bottom = 63.0
+size_flags_vertical = 0
+custom_styles/panel = ExtResource( 7 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer"]
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 66.0
+margin_bottom = 57.0
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer/VBoxContainer"]
+margin_right = 52.0
+margin_bottom = 20.0
+size_flags_horizontal = 0
 text = "Year"
 
-[node name="YearBox" parent="HBoxContainer2/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 18.0
-margin_right = 27.0
-margin_bottom = 32.0
+[node name="YearBox" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 24.0
+margin_right = 62.0
+margin_bottom = 54.0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2"]
-margin_left = 31.0
-margin_right = 59.0
-margin_bottom = 32.0
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2"]
+margin_left = 75.0
+margin_right = 122.0
+margin_bottom = 63.0
+custom_styles/panel = ExtResource( 7 )
 
-[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer2"]
-margin_right = 28.0
-margin_bottom = 14.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer2"]
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 43.0
+margin_bottom = 57.0
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer2/VBoxContainer2"]
+margin_right = 39.0
+margin_bottom = 20.0
 text = "Mon"
 
-[node name="MonthBox" parent="HBoxContainer2/VBoxContainer2" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 18.0
-margin_right = 28.0
-margin_bottom = 32.0
+[node name="MonthBox" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer2/VBoxContainer2" instance=ExtResource( 1 )]
+margin_left = 1.0
+margin_top = 24.0
+margin_right = 37.0
+margin_bottom = 54.0
+custom_constants/minimum_spaces = 2
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer2"]
-margin_left = 63.0
-margin_right = 87.0
-margin_bottom = 32.0
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2"]
+margin_left = 127.0
+margin_right = 174.0
+margin_bottom = 63.0
+custom_styles/panel = ExtResource( 7 )
 
-[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer3"]
-margin_right = 24.0
-margin_bottom = 14.0
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer3"]
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 43.0
+margin_bottom = 57.0
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer3"]
+margin_right = 39.0
+margin_bottom = 20.0
 text = "Day"
 
-[node name="DayBox" parent="HBoxContainer2/VBoxContainer3" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 18.0
-margin_right = 24.0
-margin_bottom = 32.0
+[node name="DayBox" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer3" instance=ExtResource( 1 )]
+margin_left = 1.0
+margin_top = 24.0
+margin_right = 37.0
+margin_bottom = 54.0
+custom_constants/minimum_spaces = 2
 
-[node name="VBoxContainer4" type="VBoxContainer" parent="HBoxContainer2"]
-margin_left = 91.0
-margin_right = 122.0
-margin_bottom = 32.0
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2"]
+margin_left = 179.0
+margin_right = 239.0
+margin_bottom = 63.0
+custom_styles/panel = ExtResource( 7 )
 
-[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer4"]
-margin_right = 31.0
-margin_bottom = 14.0
+[node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer4"]
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 56.0
+margin_bottom = 57.0
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer4/VBoxContainer4"]
+margin_right = 52.0
+margin_bottom = 20.0
 text = "Hour"
 
-[node name="HourBox" parent="HBoxContainer2/VBoxContainer4" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 18.0
-margin_right = 31.0
-margin_bottom = 32.0
+[node name="HourBox" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer4/VBoxContainer4" instance=ExtResource( 1 )]
+margin_left = 8.0
+margin_top = 24.0
+margin_right = 44.0
+margin_bottom = 54.0
+custom_constants/minimum_spaces = 2
 
-[node name="VBoxContainer5" type="VBoxContainer" parent="HBoxContainer2"]
-margin_left = 126.0
-margin_right = 150.0
-margin_bottom = 32.0
+[node name="PanelContainer5" type="PanelContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2"]
+margin_left = 244.0
+margin_right = 291.0
+margin_bottom = 63.0
+custom_styles/panel = ExtResource( 7 )
 
-[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer5"]
-margin_right = 24.0
-margin_bottom = 14.0
+[node name="VBoxContainer5" type="VBoxContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer5"]
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 43.0
+margin_bottom = 57.0
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer5/VBoxContainer5"]
+margin_right = 39.0
+margin_bottom = 20.0
 text = "Min"
 
-[node name="MinuteBox" parent="HBoxContainer2/VBoxContainer5" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 18.0
-margin_right = 24.0
-margin_bottom = 32.0
+[node name="MinuteBox" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer5/VBoxContainer5" instance=ExtResource( 1 )]
+margin_left = 1.0
+margin_top = 24.0
+margin_right = 37.0
+margin_bottom = 54.0
+custom_constants/minimum_spaces = 2
 
-[node name="VBoxContainer6" type="VBoxContainer" parent="HBoxContainer2"]
-margin_left = 154.0
-margin_right = 176.0
-margin_bottom = 32.0
+[node name="PanelContainer6" type="PanelContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2"]
+margin_left = 296.0
+margin_right = 343.0
+margin_bottom = 63.0
+custom_styles/panel = ExtResource( 7 )
 
-[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer6"]
-margin_right = 22.0
-margin_bottom = 14.0
+[node name="VBoxContainer6" type="VBoxContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer6"]
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 43.0
+margin_bottom = 57.0
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer6/VBoxContainer6"]
+margin_right = 39.0
+margin_bottom = 20.0
 text = "Sec"
 
-[node name="SecondBox" parent="HBoxContainer2/VBoxContainer6" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 18.0
-margin_right = 22.0
-margin_bottom = 32.0
+[node name="SecondBox" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer6/VBoxContainer6" instance=ExtResource( 1 )]
+margin_left = 1.0
+margin_top = 24.0
+margin_right = 37.0
+margin_bottom = 54.0
+custom_constants/minimum_spaces = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_top = 50.0
-margin_right = 176.0
-margin_bottom = 82.0
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer4/VBoxContainer"]
+margin_top = 73.0
+margin_right = 343.0
+margin_bottom = 98.0
 custom_constants/separation = 16
 
-[node name="VBoxContainer7" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 52.0
-margin_bottom = 32.0
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer"]
+margin_right = 25.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+texture_normal = ExtResource( 8 )
+expand = true
+stretch_mode = 4
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer7"]
-margin_right = 52.0
-margin_bottom = 14.0
+[node name="TextureButton2" type="TextureButton" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer"]
+margin_left = 41.0
+margin_right = 66.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 9 )
+expand = true
+stretch_mode = 4
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer"]
+margin_left = 82.0
+margin_top = 4.0
+margin_right = 252.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 170, 0 )
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.001
+value = 0.01
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer"]
+margin_left = 268.0
+margin_top = 2.0
+margin_right = 320.0
+margin_bottom = 22.0
+custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
+text = "Fast"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+margin_top = 170.0
+margin_right = 363.0
+margin_bottom = 295.0
+custom_constants/separation = -2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer2"]
+margin_right = 363.0
+margin_bottom = 44.0
+custom_styles/panel = ExtResource( 6 )
+
+[node name="Label2" type="Label" parent="VBoxContainer2/PanelContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 353.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 3 )
+text = "Location"
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer2"]
+margin_top = 42.0
+margin_right = 363.0
+margin_bottom = 125.0
+custom_styles/panel = ExtResource( 5 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2/PanelContainer2"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 353.0
+margin_bottom = 73.0
+custom_constants/separation = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer2/PanelContainer2/HBoxContainer"]
+margin_right = 112.0
+margin_bottom = 63.0
+custom_styles/panel = ExtResource( 7 )
+
+[node name="VBoxContainer7" type="VBoxContainer" parent="VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer"]
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 108.0
+margin_bottom = 57.0
+
+[node name="Label" type="Label" parent="VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer/VBoxContainer7"]
+margin_right = 104.0
+margin_bottom = 20.0
 text = "Latitude"
 
-[node name="LatBox" parent="HBoxContainer/VBoxContainer7" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 18.0
-margin_right = 52.0
-margin_bottom = 32.0
+[node name="LatBox" parent="VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer/VBoxContainer7" instance=ExtResource( 1 )]
+margin_top = 24.0
+margin_right = 101.0
+margin_bottom = 54.0
+size_flags_horizontal = 0
+custom_constants/minimum_spaces = 7
 
-[node name="VBoxContainer8" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 68.0
-margin_right = 131.0
-margin_bottom = 32.0
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer2/PanelContainer2/HBoxContainer"]
+margin_left = 117.0
+margin_right = 242.0
+margin_bottom = 63.0
+custom_styles/panel = ExtResource( 7 )
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer8"]
-margin_right = 63.0
-margin_bottom = 14.0
+[node name="VBoxContainer8" type="VBoxContainer" parent="VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer2"]
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 121.0
+margin_bottom = 57.0
+
+[node name="Label" type="Label" parent="VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer2/VBoxContainer8"]
+margin_right = 117.0
+margin_bottom = 20.0
 text = "Longitude"
 
-[node name="LonBox" parent="HBoxContainer/VBoxContainer8" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 18.0
-margin_right = 63.0
-margin_bottom = 32.0
+[node name="LonBox" parent="VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer2/VBoxContainer8" instance=ExtResource( 1 )]
+margin_left = 8.0
+margin_top = 24.0
+margin_right = 109.0
+margin_bottom = 54.0
+custom_constants/minimum_spaces = 7
 
-[connection signal="value_changed" from="HBoxContainer2/VBoxContainer/YearBox" to="." method="_on_YearBox_value_changed"]
-[connection signal="value_changed" from="HBoxContainer2/VBoxContainer2/MonthBox" to="." method="_on_MonthBox_value_changed"]
-[connection signal="value_changed" from="HBoxContainer2/VBoxContainer3/DayBox" to="." method="_on_DayBox_value_changed"]
-[connection signal="value_changed" from="HBoxContainer2/VBoxContainer4/HourBox" to="." method="_on_HourBox_value_changed"]
-[connection signal="value_changed" from="HBoxContainer2/VBoxContainer5/MinuteBox" to="." method="_on_MinuteBox_value_changed"]
-[connection signal="value_changed" from="HBoxContainer2/VBoxContainer6/SecondBox" to="." method="_on_SecondBox_value_changed"]
-[connection signal="value_changed" from="HBoxContainer/VBoxContainer7/LatBox" to="." method="_on_LatBox_value_changed"]
-[connection signal="value_changed" from="HBoxContainer/VBoxContainer8/LonBox" to="." method="_on_LonBox_value_changed"]
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="text_entered" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer/VBoxContainer/YearBox" to="." method="_on_YearBox_text_entered"]
+[connection signal="value_changed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer/VBoxContainer/YearBox" to="." method="_on_YearBox_value_changed"]
+[connection signal="text_entered" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer2/VBoxContainer2/MonthBox" to="." method="_on_MonthBox_text_entered"]
+[connection signal="value_changed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer2/VBoxContainer2/MonthBox" to="." method="_on_MonthBox_value_changed"]
+[connection signal="text_entered" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer3/DayBox" to="." method="_on_DayBox_text_entered"]
+[connection signal="value_changed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer3/DayBox" to="." method="_on_DayBox_value_changed"]
+[connection signal="text_entered" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer4/VBoxContainer4/HourBox" to="." method="_on_HourBox_text_entered"]
+[connection signal="value_changed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer4/VBoxContainer4/HourBox" to="." method="_on_HourBox_value_changed"]
+[connection signal="text_entered" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer5/VBoxContainer5/MinuteBox" to="." method="_on_MinuteBox_text_entered"]
+[connection signal="value_changed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer5/VBoxContainer5/MinuteBox" to="." method="_on_MinuteBox_value_changed"]
+[connection signal="text_entered" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer6/VBoxContainer6/SecondBox" to="." method="_on_SecondBox_text_entered"]
+[connection signal="value_changed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer6/VBoxContainer6/SecondBox" to="." method="_on_SecondBox_value_changed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/TextureButton2" to="." method="_on_TextureButton2_pressed"]
+[connection signal="toggled" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/TextureButton2" to="." method="_on_TextureButton2_toggled"]
+[connection signal="value_changed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="text_entered" from="VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer/VBoxContainer7/LatBox" to="." method="_on_LatBox_text_entered"]
+[connection signal="value_changed" from="VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer/VBoxContainer7/LatBox" to="." method="_on_LatBox_value_changed"]
+[connection signal="text_entered" from="VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer2/VBoxContainer8/LonBox" to="." method="_on_LonBox_text_entered"]
+[connection signal="value_changed" from="VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer2/VBoxContainer8/LonBox" to="." method="_on_LonBox_value_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

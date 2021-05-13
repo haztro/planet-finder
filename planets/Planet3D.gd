@@ -27,11 +27,12 @@ func _process(delta):
 	update_attributes()
 
 func update_attributes():
-	var day_number = PlanetLocator.get_day_number(GameData.date.get_dict(), GameData.longitude)
+	var date = PlanetLocator.get_utc_date(GameData.date.get_dict(), GameData.longitude)
+	var day_number = PlanetLocator.get_day_number(date)
 	var orbital_elements = PlanetLocator.get_orbital_elements(planet, day_number)
 	ecliptic_coords = PlanetLocator.get_heliocentric_ecliptic_coordinates(orbital_elements)
 	RA_decl = PlanetLocator.get_RA_decl(day_number, ecliptic_coords)
-	var azi_alt = PlanetLocator.get_azimuth_altitude(orbital_elements, GameData.date.get_dict(), day_number, RA_decl[0], RA_decl[1], GameData.latitude, GameData.longitude)
+	var azi_alt = PlanetLocator.get_azimuth_altitude(orbital_elements, date, day_number, RA_decl[0], RA_decl[1], GameData.latitude, GameData.longitude)
 	azimuth = azi_alt[0]
 	altitude = azi_alt[1]
 	

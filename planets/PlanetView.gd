@@ -2,7 +2,7 @@ extends "res://planets/Planet3D.gd"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-#	material.flags_unshaded = 1
+	material.flags_unshaded = 1
 	GameData.add_planet(planet, self)
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.

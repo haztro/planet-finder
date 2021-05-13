@@ -69,12 +69,14 @@ func rev(x: float) -> float:
 	if x < 0:
 		new_x += 360
 	return new_x
-
-func get_day_number(date, longitude: float) -> float:
+	
+func get_utc_date(date, longitude: float):
 	# Convert time to UTC time based on longitude
 	var time_difference: float = longitude / 15.0
 	date["hour"] = fmod((date["hour"] - time_difference), 24.0)
+	return date
 	
+func get_day_number(date) -> float:
 	var Y: int = date["year"]
 	var M: int = date["month"]
 	var D: int = date["day"]

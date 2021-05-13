@@ -38,13 +38,29 @@ func _process(delta):
 	rotate_velocity -= rotate_velocity * rotate_friction
 	pan_velocity -= pan_velocity * pan_friction
 	
-	free_rotate(transform.basis.y.normalized(), rotate_velocity.x)
-	free_rotate(transform.basis.x.normalized(), rotate_velocity.y)
+	var rb = transform.basis.rotated(Vector3.UP, rotate_velocity.x)
+	var ro = transform.origin.rotated(Vector3.UP, rotate_velocity.x)
+	transform = Transform(rb, ro)
+	
+	var pitch = transform.basis.get_euler().x + rotate_velocity.y
+	if pitch < 1.56 and pitch > -1.56:
+		rb = transform.basis.rotated(transform.basis.x.normalized(), rotate_velocity.y)
+		ro = transform.origin.rotated(transform.basis.x.normalized(), rotate_velocity.y)
+		transform = Transform(rb, ro)
+
 	pan(pan_velocity)
 	zoom()
 	
-func _unhandled_input(event):
-	handle_input(event)
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_MIDDLE:
+			if !event.is_pressed():
+				is_dragging = 0
+				is_panning = 0
+				
+	if GameData.mouse_over_gui and get_viewport().get_visible_rect().has_point(get_viewport().get_mouse_position()):
+		handle_input(event)
+
 			
 func handle_input(event):
 	if event is InputEventMouseButton:
@@ -60,10 +76,10 @@ func handle_input(event):
 				is_dragging = 0
 				is_panning = 0
 				
-		if event.button_index == BUTTON_WHEEL_DOWN:
-			target_zoom = min(target_zoom + zoom_sensitivity, 35)
-		elif event.button_index == BUTTON_WHEEL_UP:
-			target_zoom = max(target_zoom - zoom_sensitivity, 3)
+#		if event.button_index == BUTTON_WHEEL_DOWN:
+#			target_zoom = min(target_zoom + zoom_sensitivity, 35)
+#		elif event.button_index == BUTTON_WHEEL_UP:
+#			target_zoom = max(target_zoom - zoom_sensitivity, 3)
 			
 #	get_tree().set_input_as_handled()
 
@@ -93,4 +109,5 @@ func update_rotate_velocity():
 func update_pan_velocity():
 	pan_velocity += mouse_motion * pan_sensitivity 
 	
+
 

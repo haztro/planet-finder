@@ -14,13 +14,13 @@ func get_dict() -> Dictionary:
 	var d = {"year":year, "month":month, "day":day, "hour":hour, "minute":minute, "second":second}
 	return d
 
-func set_datetime(y, mon, d, h, m, s) -> void:
-	set_year(y)
-	set_month(mon)
-	set_day(d)
-	set_hour(h)
-	set_minute(m)
-	set_second(s)
+func set_datetime(datetime) -> void:
+	set_year(datetime["year"])
+	set_month(datetime["month"])
+	set_day(datetime["day"])
+	set_hour(datetime["hour"])
+	set_minute(datetime["minute"])
+	set_second(datetime["second"])
 	
 func add_datetime(y, mon, d, h, m, s) -> void:
 	add_second(s)

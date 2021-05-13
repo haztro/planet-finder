@@ -1,62 +1,126 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UI/Toolbar.gd" type="Script" id=1]
 [ext_resource path="res://UI/DateBox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=3]
-[ext_resource path="res://planets/SolarSystem.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/materials/panel.tres" type="StyleBox" id=4]
 [ext_resource path="res://ui/PlanetVisibility.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/art/stars.jpg" type="Texture" id=6]
+[ext_resource path="res://assets/fonts/font_heading.tres" type="DynamicFont" id=6]
+[ext_resource path="res://ui/Compass.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ui/Altitude.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/materials/panel_heading.tres" type="StyleBox" id=9]
 
-[sub_resource type="PanoramaSky" id=3]
-panorama = ExtResource( 6 )
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 7.0
+bg_color = Color( 0.129412, 0.129412, 0.141176, 0.937255 )
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
 
-[sub_resource type="Environment" id=1]
-background_mode = 2
-background_sky = SubResource( 3 )
-
-[sub_resource type="World" id=2]
-environment = SubResource( 1 )
-
-[node name="Toolbar" type="MarginContainer"]
-margin_right = 400.0
+[node name="Toolbar" type="PanelContainer"]
+margin_right = 365.0
 margin_bottom = 912.0
 mouse_filter = 1
 theme = ExtResource( 3 )
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 400.0
-margin_bottom = 912.0
-
-[node name="ViewportContainer" type="ViewportContainer" parent="HBoxContainer"]
-margin_right = 400.0
-margin_bottom = 400.0
-mouse_filter = 2
-input_pass_on_modal_close_click = false
-size_flags_horizontal = 10
-
-[node name="Viewport" type="Viewport" parent="HBoxContainer/ViewportContainer"]
-size = Vector2( 400, 400 )
-own_world = true
-world = SubResource( 2 )
-transparent_bg = true
-handle_input_locally = false
-msaa = 3
-render_target_update_mode = 3
-shadow_atlas_size = 4096
-
-[node name="SolarSystem" parent="HBoxContainer/ViewportContainer/Viewport" instance=ExtResource( 4 )]
+margin_left = 6.0
+margin_top = 7.0
+margin_right = 369.0
+margin_bottom = 930.0
+size_flags_horizontal = 0
+custom_constants/separation = 10
 
 [node name="DateBox" parent="HBoxContainer" instance=ExtResource( 2 )]
-margin_top = 404.0
-margin_right = 400.0
-margin_bottom = 582.0
+margin_right = 363.0
+margin_bottom = 295.0
 
-[node name="PlanetVisibility" parent="HBoxContainer" instance=ExtResource( 5 )]
-margin_top = 586.0
-margin_right = 118.0
-margin_bottom = 912.0
-custom_constants/separation = -6
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_top = 305.0
+margin_right = 363.0
+margin_bottom = 586.0
+custom_constants/separation = -4
+
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+margin_right = 363.0
+margin_bottom = 44.0
+custom_styles/panel = ExtResource( 9 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer2"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 353.0
+margin_bottom = 34.0
+custom_constants/separation = 80
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+margin_right = 119.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 6 )
+text = "Azimuth"
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+margin_left = 199.0
+margin_right = 335.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 6 )
+text = "Altitude"
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 40.0
+margin_right = 363.0
+margin_bottom = 281.0
+custom_styles/panel = ExtResource( 4 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 346.0
+margin_bottom = 231.0
+size_flags_horizontal = 0
+custom_constants/separation = 20
+
+[node name="Compass" parent="HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer2" instance=ExtResource( 7 )]
+margin_bottom = 221.0
+
+[node name="Sprite" parent="HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer2" instance=ExtResource( 8 )]
+margin_left = 211.0
+margin_right = 336.0
+margin_bottom = 221.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+margin_top = 596.0
+margin_right = 363.0
+margin_bottom = 923.0
+custom_constants/separation = -3
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2"]
+margin_right = 363.0
+margin_bottom = 44.0
+custom_styles/panel = ExtResource( 9 )
+
+[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer2/PanelContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 353.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 6 )
+text = "Visibility"
+
+[node name="PanelContainer3" type="PanelContainer" parent="HBoxContainer/VBoxContainer2"]
+margin_top = 41.0
+margin_right = 363.0
+margin_bottom = 327.0
+custom_styles/panel = ExtResource( 4 )
+
+[node name="PlanetVisibility" parent="HBoxContainer/VBoxContainer2/PanelContainer3" instance=ExtResource( 5 )]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 128.0
+margin_bottom = 276.0

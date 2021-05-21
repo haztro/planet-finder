@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://UI/Toolbar.gd" type="Script" id=1]
-[ext_resource path="res://UI/DateBox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/Toolbar.gd" type="Script" id=1]
+[ext_resource path="res://ui/DateBox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=3]
 [ext_resource path="res://assets/materials/panel.tres" type="StyleBox" id=4]
 [ext_resource path="res://ui/PlanetVisibility.tscn" type="PackedScene" id=5]

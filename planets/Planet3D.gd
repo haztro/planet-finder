@@ -13,6 +13,7 @@ var selected = 0
 var draw_lines = 1
 
 var material = preload("res://assets/materials/planet.tres").duplicate()
+var arrow_material = preload("res://assets/materials/arrow.tres").duplicate()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,10 +23,15 @@ func _ready():
 	$PlanetMesh.mesh = mesh
 	material.albedo_texture = GameData.planet_textures[planet]
 	$PlanetMesh.set_surface_material(0, material) 
-
+	$Spatial/LinePoint.set_surface_material(0, arrow_material)
+	$Spatial/MeshInstance.set_surface_material(0, arrow_material)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	update_attributes()
+	
+	$Spatial.transform.origin = $PlanetMesh.transform.origin
+	$Spatial.look_at(GameData.earth_position, Vector3.UP)
 
 func update_attributes():
 	var date = PlanetLocator.get_utc_date(GameData.date.get_dict(), GameData.longitude)
@@ -46,20 +52,23 @@ func deselect():
 func set_visible(val):
 	visible = val
 
-func draw_lines():
+func draw_lines(colour):
 	get_node("PlanetMesh/Draw").clear()
 	get_node("PlanetMesh/Draw").begin(Mesh.PRIMITIVE_LINES, null) #1 = is an enum for draw line, null is for text
-	get_node("PlanetMesh/Draw").set_color(Color(1, 1, 1, 0.5))
-	
+	get_node("PlanetMesh/Draw").set_color(colour)
+
 	# get_node("Draw").add_vertex(-transform.origin) + GameData.earth_position)
-	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, 0))
-	get_node("PlanetMesh/Draw").add_vertex(-$PlanetMesh.transform.origin + Vector3(0, 0, 1))
+#	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, 0))
+#	get_node("PlanetMesh/Draw").add_vertex(-$PlanetMesh.transform.origin + Vector3(0, 0, 1))
 	get_node("PlanetMesh/Draw").add_vertex(-$PlanetMesh.transform.origin + Vector3(0, 0, 1))
 	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z + 1)) 
 	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z + 1)) 
-	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, 0))
-#	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z)) 
+	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -0.5))
 	
+
+	
+#	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z)) 
+
 #
 #	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z - 1))
 #	get_node("PlanetMesh/Draw").add_vertex(-$PlanetMesh.transform.origin - Vector3(0, 0, 1))

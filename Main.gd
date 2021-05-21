@@ -6,9 +6,5 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-#	$ViewportContainer/Viewport.size = GameData.resolution
-#
-#	var s = get_viewport().size / GameData.resolution
-#
-#	$ViewportContainer.rect_scale = s
-	pass
+	if Input.is_action_just_pressed("fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen

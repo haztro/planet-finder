@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Space.gd" type="Script" id=1]
 [ext_resource path="res://planets/Earth.tscn" type="PackedScene" id=2]
 [ext_resource path="res://planets/PlanetView.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Camera.gd" type="Script" id=4]
-[ext_resource path="res://assets/art/gridlines.png" type="Texture" id=5]
 [ext_resource path="res://planets/SaturnView.tscn" type="PackedScene" id=6]
 [ext_resource path="res://planets/SunView.gd" type="Script" id=7]
 
@@ -12,12 +11,6 @@
 flip_faces = true
 radius = 100.0
 height = 200.0
-
-[sub_resource type="SpatialMaterial" id=2]
-flags_transparent = true
-flags_unshaded = true
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource( 5 )
 
 [node name="Space" type="Spatial"]
 script = ExtResource( 1 )
@@ -70,4 +63,4 @@ planet = "sun"
 transform = Transform( 1, 0, 0, 0, 0.91706, 0.398749, 0, -0.398749, 0.91706, 0, 0, 0 )
 visible = false
 mesh = SubResource( 1 )
-material/0 = SubResource( 2 )
+material/0 = null

@@ -10,6 +10,9 @@ func _on_viewport_size_changed():
 	var window_size = OS.get_window_size()
 	rect_size.y = window_size.y
 	rect_position = Vector2(0, 0)
+	if rect_size.y >= window_size.y:
+		rect_scale.y = window_size.y / rect_size.y
+		rect_scale.x = rect_scale.y
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

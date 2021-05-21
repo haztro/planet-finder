@@ -24,9 +24,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	lat_box.set_value(GameData.latitude)
-	lon_box.set_value(GameData.longitude)
-	update_all_boxes()
+#	lat_box.set_value(GameData.latitude)
+#	lon_box.set_value(GameData.longitude)
+#	update_all_boxes()
+	pass
 
 func update_all_boxes():
 	year_box.set_value(date.year)

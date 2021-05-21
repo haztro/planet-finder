@@ -8,8 +8,9 @@ export(float) var distance = 8
 var azimuth = 0
 var altitude = 0
 var ecliptic_coords = Vector3.ZERO
-var RA_decl = []
+var RA_decl = [0, 0]
 var selected = 0
+var draw_lines = 1
 
 var material = preload("res://assets/materials/planet.tres").duplicate()
 

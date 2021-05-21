@@ -1,10 +1,18 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://planets/SolarSystem.gd" type="Script" id=1]
 [ext_resource path="res://planets/PlanetSystem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://planets/PlanetSystemSun.gd" type="Script" id=3]
 [ext_resource path="res://planets/SaturnSystem.tscn" type="PackedScene" id=4]
 [ext_resource path="res://planets/CameraSystem.gd" type="Script" id=5]
+
+[sub_resource type="CylinderMesh" id=2]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 3.389
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_unshaded = true
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -36,6 +44,10 @@ distance = 3.0
 planet = "earth"
 radius = 0.6
 distance = 4.0
+
+[node name="MeshInstance" type="MeshInstance" parent="Earth"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 
 [node name="Mars" parent="." instance=ExtResource( 2 )]
 planet = "mars"

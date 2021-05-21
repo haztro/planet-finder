@@ -58,7 +58,7 @@ func _input(event):
 				is_dragging = 0
 				is_panning = 0
 				
-	if GameData.mouse_over_gui and get_viewport().get_visible_rect().has_point(get_viewport().get_mouse_position()):
+	if get_viewport().get_visible_rect().has_point(get_viewport().get_mouse_position()):
 		handle_input(event)
 
 			
@@ -76,10 +76,10 @@ func handle_input(event):
 				is_dragging = 0
 				is_panning = 0
 				
-#		if event.button_index == BUTTON_WHEEL_DOWN:
-#			target_zoom = min(target_zoom + zoom_sensitivity, 35)
-#		elif event.button_index == BUTTON_WHEEL_UP:
-#			target_zoom = max(target_zoom - zoom_sensitivity, 3)
+		if event.button_index == BUTTON_WHEEL_DOWN:
+			target_zoom = min(target_zoom + zoom_sensitivity, 35)
+		elif event.button_index == BUTTON_WHEEL_UP:
+			target_zoom = max(target_zoom - zoom_sensitivity, 3)
 			
 #	get_tree().set_input_as_handled()
 

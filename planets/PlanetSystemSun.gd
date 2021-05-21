@@ -15,4 +15,3 @@ func update_position():
 	var vert_swap = Vector3(ecliptic_coords.x, ecliptic_coords.z, ecliptic_coords.y)
 	transform.origin = vert_swap.normalized() * distance
 	
-

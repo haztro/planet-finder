@@ -24,18 +24,25 @@ func _process(delta):
 	
 	rotate_velocity -= rotate_velocity * rotate_friction
 	
-	var rb = transform.basis.rotated(Vector3.UP, rotate_velocity.x)
-	var ro = transform.origin.rotated(Vector3.UP, rotate_velocity.x)
-	transform = Transform(rb, ro)
+	var v1 = Vector2(transform.basis.y.y, transform.basis.y.z)
+	var pitch = -v1.angle_to(Vector2.UP) + rotate_velocity.y
 	
-	var pitch = transform.basis.get_euler().x + rotate_velocity.y
-	if pitch < 1.56 and pitch > -1.56:
+	if pitch < 1.55 and pitch > -1.55:
 		transform.basis = transform.basis.rotated(transform.basis.x.normalized(), rotate_velocity.y)
-#		ro = transform.origin.rotated(transform.basis.x.normalized(), rotate_velocity.y)
-#		transform = Transform(rb, ro)
 	
-func _unhandled_input(event):
-	handle_input(event)
+	var rb = transform.basis.rotated(Vector3.FORWARD, rotate_velocity.x)
+	var ro = transform.origin.rotated(Vector3.FORWARD, rotate_velocity.x)
+	transform = Transform(rb, ro)
+
+	
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_MIDDLE:
+			if !event.is_pressed():
+				is_dragging = 0
+				
+	if get_viewport().get_visible_rect().has_point(get_viewport().get_mouse_position()):
+		handle_input(event)
 			
 func handle_input(event):
 	if event is InputEventMouseButton:

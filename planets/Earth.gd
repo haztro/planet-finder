@@ -7,7 +7,8 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$MarkerMesh.transform.origin = GameData.earth_position
+	if $MarkerMesh.transform.origin != GameData.earth_position:
+		$MarkerMesh.look_at(GameData.earth_position, Vector3.UP)
 
 
 

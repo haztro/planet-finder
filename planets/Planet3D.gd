@@ -31,7 +31,8 @@ func _process(delta):
 	update_attributes()
 	
 	$Spatial.transform.origin = $PlanetMesh.transform.origin
-	$Spatial.look_at(GameData.earth_position, Vector3.UP)
+	if $Spatial.transform.origin != GameData.earth_position:
+		$Spatial.look_at(GameData.earth_position, Vector3.UP)
 
 func update_attributes():
 	var date = PlanetLocator.get_utc_date(GameData.date.get_dict(), GameData.longitude)
@@ -63,7 +64,7 @@ func draw_lines(colour):
 	get_node("PlanetMesh/Draw").add_vertex(-$PlanetMesh.transform.origin + Vector3(0, 0, 1))
 	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z + 1)) 
 	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z + 1)) 
-	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -0.5))
+	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, 0.5))
 	
 
 	

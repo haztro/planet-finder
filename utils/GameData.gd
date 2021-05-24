@@ -3,6 +3,9 @@ extends Node
 var latitude = 0
 var longitude = 0
 
+var target_lat = 0
+var target_lon = 0
+
 var earth_position = Vector3.ZERO
 var target_earth_position = Vector3.ZERO
 
@@ -13,7 +16,7 @@ var mouse_over_gui = 0
 
 var time_passing = 0
 var time_speed = 1
-var inc = 1
+var inc = 0
 var ticks = 0
 
 var selected_planet = null
@@ -38,28 +41,22 @@ func _ready():
 	date = DateTime.new()
 	date.set_datetime(OS.get_datetime())
 	rect = Rect2(Vector2.ZERO, resolution)
+	set_latitude(0)
+	set_longitude(0)
 #	get_tree().connect("screen_resized", self, "_screen_resized")
 
 func _process(delta):
 	earth_position += (target_earth_position - earth_position) * 0.3
 	earth_position += earth_position.normalized() * (1 - earth_position.length())
 	
+	latitude += (target_lat - latitude) * 0.2
+	longitude += (target_lon - longitude) * 0.2
+	
 	if time_passing:
-		ticks += delta
-		if ticks >= time_speed:
-			ticks = ticks - time_speed
-			if inc == 0:
-				date.add_second(1)
-			elif inc == 1:
-				date.add_minute(1)
-			elif inc == 2:
-				date.add_hour(1)
-			elif inc == 3:
-				date.add_day(1)
-			elif inc == 4:
-				date.add_month(1)
-			elif inc == 5:
-				date.add_year(1)
+		if GameData.inc == 0:
+			date.add_second(delta)
+		else:
+			date.add_seconds(GameData.inc)
 
 #	compute_latlon_from_rectangular()
 #	print(latitude)
@@ -83,20 +80,20 @@ func set_earth_position_from_rectangular(pos):
 	get_latlon_from_rectangular()
 
 func set_latitude(lat):
-	latitude = lat
+	target_lat = lat
 	set_earth_position_from_latlon()
 	
 func set_longitude(lon):
-	longitude = lon
+	target_lon = lon
 	set_earth_position_from_latlon()
 	
 func compute_latlon_from_rectangular():
-	latitude = rad2deg(asin(earth_position.y))
-	longitude = rad2deg(atan2(-earth_position.z, earth_position.x))
+	target_lat = rad2deg(asin(earth_position.y))
+	target_lon = rad2deg(atan2(-earth_position.z, earth_position.x))
 	
 func get_latlon_from_rectangular():
-	latitude = rad2deg(asin(target_earth_position.y))
-	longitude = rad2deg(atan2(-target_earth_position.z, target_earth_position.x)) 
+	target_lat = rad2deg(asin(target_earth_position.y))
+	target_lon = rad2deg(atan2(-target_earth_position.z, target_earth_position.x)) 
 	
 func set_earth_position_from_latlon():
 	target_earth_position.x = cos(deg2rad(latitude)) * cos(deg2rad(-longitude))

@@ -1,35 +1,58 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://ui/PlanetCheckbox.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/joystix monospace.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/art/eye.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/eye1.png" type="Texture" id=4]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=3]
 size = 18
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
 
 [node name="PlanetCheckbox" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1852.0
 margin_bottom = -1056.0
+custom_constants/separation = 35
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="."]
-margin_top = 1.0
+margin_top = 5.0
 margin_right = 90.0
-margin_bottom = 23.0
-custom_fonts/font = SubResource( 1 )
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 3 )
 text = "Planet"
 
 [node name="CheckBox" type="CheckBox" parent="."]
-margin_left = 94.0
-margin_right = 118.0
-margin_bottom = 24.0
+margin_left = 125.0
+margin_right = 157.0
+margin_bottom = 32.0
 size_flags_horizontal = 10
+custom_icons/checked = ExtResource( 3 )
+custom_icons/unchecked = ExtResource( 4 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/hover_pressed = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
 pressed = true
 
 [connection signal="toggled" from="CheckBox" to="." method="_on_CheckBox_toggled"]

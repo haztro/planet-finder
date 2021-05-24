@@ -10,6 +10,9 @@ onready var second_box = get_node("VBoxContainer/PanelContainer4/VBoxContainer/H
 onready var lat_box = get_node("VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer/VBoxContainer7/LatBox")
 onready var lon_box = get_node("VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer2/VBoxContainer8/LonBox")
 
+var play_texture = preload("res://assets/art/play_button.png")
+var pause_texture = preload("res://assets/art/pause_button.png")
+
 var date = null
 
 # Called when the node enters the scene tree for the first time.
@@ -24,10 +27,22 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-#	lat_box.set_value(GameData.latitude)
-#	lon_box.set_value(GameData.longitude)
-#	update_all_boxes()
-	pass
+	lat_box.set_value(GameData.target_lat)
+	lon_box.set_value(GameData.target_lon)
+	update_all_boxes()
+
+	if Input.is_action_just_pressed("play"):
+		AudioManager.play("click", 0, 1.5)
+		GameData.time_passing = !GameData.time_passing
+		if GameData.time_passing:
+			$VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/TextureButton2.texture_normal = pause_texture
+		else:
+			$VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/TextureButton2.texture_normal = play_texture
+
+	if Input.is_action_pressed("slow_down"):
+		GameData.inc = max(0, GameData.inc - 5)
+	elif Input.is_action_pressed("speed_up"):
+		GameData.inc = min(3600, GameData.inc + 5)
 
 func update_all_boxes():
 	year_box.set_value(date.year)
@@ -115,14 +130,20 @@ func _on_LonBox_text_entered(new_text):
 
 
 func _on_TextureButton_pressed():
+	AudioManager.play("click", 0, 1.5)
 	date.set_datetime(OS.get_datetime())
 	GameData.date = date
 	update_all_boxes()
 	
 
 func _on_TextureButton2_toggled(button_pressed):
+	AudioManager.play("click", 0, 1.5)
 	GameData.time_passing = button_pressed
-
+	if button_pressed:
+		$VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/TextureButton2.texture_normal = pause_texture
+	else:
+		$VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/TextureButton2.texture_normal = play_texture
+		
 func _on_HSlider_value_changed(value):
 #	if value < 1.667:
 #		GameData.time_speed = 1 - (value / 1.667)
@@ -142,6 +163,6 @@ func _on_HSlider_value_changed(value):
 #	elif value < 10:
 #		GameData.time_speed = (1 - (value - 8.33) / 1.667) * 0.5
 #		GameData.inc = 5
-	GameData.time_speed = 1 - sqrt(value)
+	GameData.inc = value * 3600
 			
 

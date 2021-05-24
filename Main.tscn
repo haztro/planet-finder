@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://ui/Toolbar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Space.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/env.tres" type="Environment" id=4]
 [ext_resource path="res://ui/ToolbarView.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/art/gear.png" type="Texture" id=6]
+[ext_resource path="res://assets/art/gear_hover.png" type="Texture" id=7]
+[ext_resource path="res://assets/art/gear_down.png" type="Texture" id=8]
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 1 )
@@ -32,12 +35,43 @@ environment = ExtResource( 4 )
 [node name="GUI" type="CanvasLayer" parent="."]
 
 [node name="Toolbar" parent="GUI" instance=ExtResource( 2 )]
-margin_top = 0.891
 margin_right = 375.0
-margin_bottom = 930.891
+margin_bottom = 1080.0
 mouse_filter = 2
 
 [node name="ToolbarView" parent="GUI" instance=ExtResource( 5 )]
 visible = false
 margin_left = 1588.0
 margin_right = 1920.0
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI"]
+margin_right = 1920.0
+margin_bottom = 1081.0
+mouse_filter = 2
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="GUI/MarginContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 10.0
+margin_top = 1007.0
+margin_right = 74.0
+margin_bottom = 1071.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+disabled = true
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="GUI/MarginContainer"]
+
+[connection signal="pressed" from="GUI/MarginContainer/TextureButton" to="." method="_on_TextureButton_pressed"]

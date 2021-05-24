@@ -48,4 +48,20 @@ cast_shadow = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="PlanetMesh/Area"]
 shape = SubResource( 4 )
+
+[node name="PlanetMesh2" type="MeshInstance" parent="."]
+cast_shadow = 0
+
+[node name="Draw" type="ImmediateGeometry" parent="PlanetMesh2"]
+material_override = SubResource( 3 )
+cast_shadow = 0
+
+[node name="Area" type="Area" parent="PlanetMesh2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="PlanetMesh2/Area"]
+shape = SubResource( 4 )
+
+[node name="Tween" type="Tween" parent="."]
+
 [connection signal="input_event" from="PlanetMesh/Area" to="." method="_on_Area_input_event"]
+[connection signal="input_event" from="PlanetMesh2/Area" to="." method="_on_Area_input_event"]

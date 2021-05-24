@@ -11,6 +11,8 @@ var ecliptic_coords = Vector3.ZERO
 var RA_decl = [0, 0]
 var selected = 0
 var draw_lines = 1
+var is_visible = 1
+var target_value = 1
 
 var material = preload("res://assets/materials/planet.tres").duplicate()
 var arrow_material = preload("res://assets/materials/arrow.tres").duplicate()
@@ -46,42 +48,59 @@ func update_attributes():
 	
 func select():
 	selected = 1
-	
+	if !is_visible:
+		$Tween.interpolate_property(arrow_material, "albedo_color", arrow_material.albedo_color, Color(1, 1, 1, 0), 0.2, 0, 1)
+	else:
+		$Tween.interpolate_property(arrow_material, "albedo_color", arrow_material.albedo_color, Color(1, 1, 1, target_value), 0.2, 0, 1)
+	$Tween.start()
+		
 func deselect():
 	selected = 0
+	if !is_visible:
+		$Tween.interpolate_property(arrow_material, "albedo_color", arrow_material.albedo_color, Color(0.48, 0.81, 0.44, 0), 0.2, 0, 1)
+	else:
+		$Tween.interpolate_property(arrow_material, "albedo_color", arrow_material.albedo_color, Color(0.48, 0.81, 0.44, target_value), 0.2, 0, 1)
+	$Tween.start()
 	
 func set_visible(val):
-	visible = val
+#	visible = val
+#	is_visible = val
+	if val:
+		$Tween.interpolate_property(arrow_material, "albedo_color:a", arrow_material.albedo_color.a, target_value, 0.1, 0, 0)
+		$Tween.interpolate_property(material, "albedo_color:a", material.albedo_color.a, target_value, 0.1, 0, 0)
+		if planet == "saturn":
+			var m = get_node("PlanetMesh/MeshInstance").get_surface_material(0)
+			$Tween.interpolate_property(m, "albedo_color:a", m.albedo_color.a, target_value, 0.1, 0, 0)
+	else:
+		is_visible = val
+		$Tween.interpolate_property(arrow_material, "albedo_color:a", arrow_material.albedo_color.a, 0, 0.1, 0, 0)
+		$Tween.interpolate_property(material, "albedo_color:a", material.albedo_color.a, 0, 0.1, 0, 0)
+		if planet == "saturn":
+			var m = get_node("PlanetMesh/MeshInstance").get_surface_material(0)
+			$Tween.interpolate_property(m, "albedo_color:a", m.albedo_color.a, 0, 0.1, 0, 0)
+	$Tween.start()
+	yield($Tween, "tween_all_completed")
+	is_visible = val
 
 func draw_lines(colour):
-	get_node("PlanetMesh/Draw").clear()
-	get_node("PlanetMesh/Draw").begin(Mesh.PRIMITIVE_LINES, null) #1 = is an enum for draw line, null is for text
-	get_node("PlanetMesh/Draw").set_color(colour)
-
-	# get_node("Draw").add_vertex(-transform.origin) + GameData.earth_position)
-#	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, 0))
-#	get_node("PlanetMesh/Draw").add_vertex(-$PlanetMesh.transform.origin + Vector3(0, 0, 1))
-	get_node("PlanetMesh/Draw").add_vertex(-$PlanetMesh.transform.origin + Vector3(0, 0, 1))
-	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z + 1)) 
-	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z + 1)) 
-	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, 0.5))
-	
-
-	
-#	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z)) 
-
+#	get_node("PlanetMesh/Draw").clear()
+#	get_node("PlanetMesh/Draw").begin(Mesh.PRIMITIVE_LINES, null) #1 = is an enum for draw line, null is for text
+#	get_node("PlanetMesh/Draw").set_color(colour)
 #
-#	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z - 1))
-#	get_node("PlanetMesh/Draw").add_vertex(-$PlanetMesh.transform.origin - Vector3(0, 0, 1))
+#	get_node("PlanetMesh/Draw").add_vertex(-$PlanetMesh.transform.origin + Vector3(0, 0, 1))
+#	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z + 1)) 
+#	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z + 1)) 
 #	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, 0))
-#	get_node("PlanetMesh/Draw").add_vertex(Vector3(0, 0, -$PlanetMesh.transform.origin.z - 1))
+#
+#	get_node("PlanetMesh/Draw").end()
 	
-	get_node("PlanetMesh/Draw").end()
+	pass
 
 
 func _on_Area_input_event(camera, event, click_position, click_normal, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
-			if event.is_pressed():
+			if event.is_pressed() and is_visible:
+				AudioManager.play("click", 0, 0.4)
 				GameData.update_selection(self)
 				

@@ -7,7 +7,7 @@
 margin_right = 69.0
 margin_bottom = 192.0
 size_flags_horizontal = 2
-custom_constants/separation = 6
+custom_constants/separation = 9
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -16,73 +16,73 @@ __meta__ = {
 [node name="SunCheckbox" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 118.0
-margin_bottom = 24.0
+margin_right = 157.0
+margin_bottom = 32.0
 text = "Sun"
 colour = Color( 1.27, 1.14, 0.36, 1 )
 
 [node name="MercuryCheckbox" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 30.0
-margin_right = 118.0
-margin_bottom = 54.0
+margin_top = 41.0
+margin_right = 157.0
+margin_bottom = 73.0
 text = "Mercury"
 colour = Color( 0.592157, 0.592157, 0.592157, 1 )
 
 [node name="VenusCheckbox" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 60.0
-margin_right = 118.0
-margin_bottom = 84.0
+margin_top = 82.0
+margin_right = 157.0
+margin_bottom = 114.0
 text = "Venus"
 colour = Color( 0.807843, 0.545098, 0.235294, 1 )
 
 [node name="MarsCheckbox" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 90.0
-margin_right = 118.0
-margin_bottom = 114.0
+margin_top = 123.0
+margin_right = 157.0
+margin_bottom = 155.0
 text = "Mars"
 colour = Color( 0.819608, 0.407843, 0.207843, 1 )
 
 [node name="JupiterCheckbox" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 120.0
-margin_right = 118.0
-margin_bottom = 144.0
+margin_top = 164.0
+margin_right = 157.0
+margin_bottom = 196.0
 text = "Jupiter"
 colour = Color( 0.611765, 0.529412, 0.407843, 1 )
 
 [node name="SaturnCheckbox" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 150.0
-margin_right = 118.0
-margin_bottom = 174.0
+margin_top = 205.0
+margin_right = 157.0
+margin_bottom = 237.0
 text = "Saturn"
 colour = Color( 0.752941, 0.678431, 0.443137, 1 )
 
 [node name="UranusCheckbox" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 180.0
-margin_right = 118.0
-margin_bottom = 204.0
+margin_top = 246.0
+margin_right = 157.0
+margin_bottom = 278.0
 text = "Uranus"
-colour = Color( 0.301961, 0.309804, 0.635294, 1 )
+colour = Color( 0.521569, 0.698039, 0.780392, 1 )
 
 [node name="NeptuneCheckbox" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 210.0
-margin_right = 118.0
-margin_bottom = 234.0
+margin_top = 287.0
+margin_right = 157.0
+margin_bottom = 319.0
 text = "Neptune"
-colour = Color( 0.521569, 0.698039, 0.780392, 1 )
+colour = Color( 0.301961, 0.309804, 0.635294, 1 )
 
 [connection signal="toggled" from="SunCheckbox" to="." method="_on_SunCheckbox_toggled"]
 [connection signal="toggled" from="MercuryCheckbox" to="." method="_on_MercuryCheckbox_toggled"]

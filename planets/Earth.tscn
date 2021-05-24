@@ -58,4 +58,5 @@ material/0 = ExtResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
+
 [connection signal="input_event" from="EarthMesh/Area" to="." method="_on_Area_input_event"]

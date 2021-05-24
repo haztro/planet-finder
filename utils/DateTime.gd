@@ -8,7 +8,7 @@ var month: int = 1
 var day: int = 1
 var hour: int = 0
 var minute: int = 0
-var second: int = 0
+var second: float = 0
 
 func get_dict() -> Dictionary:
 	var d = {"year":year, "month":month, "day":day, "hour":hour, "minute":minute, "second":second}
@@ -48,7 +48,7 @@ func set_minute(m) -> void:
 	minute = int(clamp(m, 0, 59))
 	
 func set_second(s) -> void:
-	second = int(clamp(s, 0, 59))
+	second = float(clamp(s, 0, 59))
 	
 # Adders
 func add_year(y):
@@ -109,7 +109,19 @@ func add_second(s):
 	else:
 		set_second(second + s)
 	return second
-	
+#
+## Not correct but good enough for this
+func add_seconds(s):
+	var d = OS.get_unix_time_from_datetime(get_dict())
+	d += s
+	var datetime = OS.get_datetime_from_unix_time(d)
+	year = datetime["year"]
+	month = datetime["month"]
+	day = datetime["day"]
+	hour = datetime["hour"]
+	minute = datetime["minute"]
+	second = datetime["second"]
+
 func get_days_in_month(month : int, year : int) -> int:
 	var number_of_days : int
 	if (month == Month.APR or month == Month.JUN or month == Month.SEP or month == Month.NOV):

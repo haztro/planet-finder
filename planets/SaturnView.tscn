@@ -4,16 +4,17 @@
 [ext_resource path="res://planets/PlanetView.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/art/ring.obj" type="ArrayMesh" id=3]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=1]
 flags_transparent = true
 flags_unshaded = true
 params_cull_mode = 2
 albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( -1, 1, 1 )
 
 [node name="SaturnView" instance=ExtResource( 2 )]
 
 [node name="MeshInstance" type="MeshInstance" parent="PlanetMesh" index="2"]
-transform = Transform( 1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0 )
+transform = Transform( 1.2, 0, 0, 0, 1.06921, -0.544789, 0, 0.544789, 1.06921, 0, 0, 0 )
 mesh = ExtResource( 3 )
 software_skinning_transform_normals = false
-material/0 = SubResource( 3 )
+material/0 = SubResource( 1 )

@@ -251,7 +251,6 @@ rect_min_size = Vector2( 170, 0 )
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.001
-value = 0.01
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer"]
 margin_left = 268.0
@@ -315,6 +314,7 @@ margin_right = 101.0
 margin_bottom = 54.0
 size_flags_horizontal = 0
 custom_constants/minimum_spaces = 7
+is_integer = false
 
 [node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer2/PanelContainer2/HBoxContainer"]
 margin_left = 117.0
@@ -339,8 +339,10 @@ margin_top = 24.0
 margin_right = 109.0
 margin_bottom = 54.0
 custom_constants/minimum_spaces = 7
+is_integer = false
 
 [node name="Timer" type="Timer" parent="."]
+
 [connection signal="text_entered" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer/VBoxContainer/YearBox" to="." method="_on_YearBox_text_entered"]
 [connection signal="value_changed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer/VBoxContainer/YearBox" to="." method="_on_YearBox_value_changed"]
 [connection signal="text_entered" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer2/VBoxContainer2/MonthBox" to="." method="_on_MonthBox_text_entered"]
@@ -354,7 +356,6 @@ custom_constants/minimum_spaces = 7
 [connection signal="text_entered" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer6/VBoxContainer6/SecondBox" to="." method="_on_SecondBox_text_entered"]
 [connection signal="value_changed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer2/PanelContainer6/VBoxContainer6/SecondBox" to="." method="_on_SecondBox_value_changed"]
 [connection signal="pressed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/TextureButton2" to="." method="_on_TextureButton2_pressed"]
 [connection signal="toggled" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/TextureButton2" to="." method="_on_TextureButton2_toggled"]
 [connection signal="value_changed" from="VBoxContainer/PanelContainer4/VBoxContainer/HBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="text_entered" from="VBoxContainer2/PanelContainer2/HBoxContainer/PanelContainer/VBoxContainer7/LatBox" to="." method="_on_LatBox_text_entered"]

@@ -36,3 +36,4 @@ func _gui_input(event):
 
 func _on_ScrollBox_focus_exited():
 	emit_signal("text_entered", text)
+

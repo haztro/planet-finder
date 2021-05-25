@@ -27,7 +27,11 @@ func update_position():
 		$Spatial/MeshInstance.get_surface_material(0).albedo_color.a = val
 		if planet == "saturn":
 			get_node("PlanetMesh/MeshInstance").get_surface_material(0).albedo_color.a = val
-	
+		elif planet == "sun":
+			if val < 1:
+				get_node("PlanetMesh/Sprite3D").modulate.a = 0
+			else:
+				get_node("PlanetMesh/Sprite3D").modulate.a = 1
 #	if selected:
 	draw_lines(Color(1, 1, 1, val))
 #	else:

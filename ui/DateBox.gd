@@ -110,23 +110,23 @@ func _on_SecondBox_text_entered(new_text):
 
 
 func _on_LatBox_value_changed(dir):
-	GameData.set_latitude(clamp(GameData.latitude + dir, -90, 90))
+	GameData.set_latitude(clamp(GameData.target_lat + dir, -90, 90))
 	lat_box.set_value(GameData.latitude)
 
 func _on_LonBox_value_changed(dir):
-	GameData.set_longitude(clamp(GameData.longitude + dir, -180, 180))
+	GameData.set_longitude(clamp(GameData.target_lon + dir, -180, 180))
 	lon_box.set_value(GameData.longitude)
 
 
 func _on_LatBox_text_entered(new_text):
 	if new_text.is_valid_float():
 		GameData.set_latitude(clamp(float(new_text), -90, 90))
-	lat_box.set_value(GameData.latitude)
+	lat_box.set_value(GameData.target_lat)
 
 func _on_LonBox_text_entered(new_text):
 	if new_text.is_valid_float():
 		GameData.set_longitude(clamp(float(new_text), -180, 180))
-	lon_box.set_value(GameData.longitude)
+	lon_box.set_value(GameData.target_lon)
 
 
 func _on_TextureButton_pressed():

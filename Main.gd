@@ -4,7 +4,10 @@ extends Spatial
 func _ready():
 	get_tree().get_root().connect("size_changed", self, "_on_viewport_size_changed")
 	_on_viewport_size_changed()
-	AudioManager.play("music", -12, 1, 1)
+	AudioManager.play("music", -6, 1, 2)
+#	var ev = InputEventKey.new()
+#	ev.set_scancode(KEY_KP_ENTER)
+#	InputMap.action_add_event("ui_accept", ev)
 
 func _on_viewport_size_changed():
 	$GUI/MarginContainer.rect_size = OS.get_window_size()

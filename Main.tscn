@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://ui/Toolbar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Space.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/env.tres" type="Environment" id=4]
-[ext_resource path="res://ui/ToolbarView.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/art/gear.png" type="Texture" id=6]
 [ext_resource path="res://assets/art/gear_hover.png" type="Texture" id=7]
 [ext_resource path="res://assets/art/gear_down.png" type="Texture" id=8]
@@ -38,11 +37,6 @@ environment = ExtResource( 4 )
 margin_right = 375.0
 margin_bottom = 1080.0
 mouse_filter = 2
-
-[node name="ToolbarView" parent="GUI" instance=ExtResource( 5 )]
-visible = false
-margin_left = 1588.0
-margin_right = 1920.0
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI"]
 margin_right = 1920.0

@@ -71,6 +71,9 @@ func set_visible(val):
 		if planet == "saturn":
 			var m = get_node("PlanetMesh/MeshInstance").get_surface_material(0)
 			$Tween.interpolate_property(m, "albedo_color:a", m.albedo_color.a, target_value, 0.1, 0, 0)
+		elif planet == "sun":
+			var m = get_node("PlanetMesh/Sprite3D")
+			$Tween.interpolate_property(m, "modulate:a", m.modulate.a, target_value, 0.1, 0, 0)
 	else:
 		is_visible = val
 		$Tween.interpolate_property(arrow_material, "albedo_color:a", arrow_material.albedo_color.a, 0, 0.1, 0, 0)
@@ -78,9 +81,13 @@ func set_visible(val):
 		if planet == "saturn":
 			var m = get_node("PlanetMesh/MeshInstance").get_surface_material(0)
 			$Tween.interpolate_property(m, "albedo_color:a", m.albedo_color.a, 0, 0.1, 0, 0)
+		elif planet == "sun":
+			var m = get_node("PlanetMesh/Sprite3D")
+			$Tween.interpolate_property(m, "modulate:a", m.modulate.a, 0, 0.1, 0, 0)
 	$Tween.start()
 	yield($Tween, "tween_all_completed")
 	is_visible = val
+	visible = val
 
 func draw_lines(colour):
 #	get_node("PlanetMesh/Draw").clear()

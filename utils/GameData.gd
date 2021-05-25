@@ -46,6 +46,8 @@ func _ready():
 #	get_tree().connect("screen_resized", self, "_screen_resized")
 
 func _process(delta):
+	set_earth_position_from_latlon()
+	
 	earth_position += (target_earth_position - earth_position) * 0.3
 	earth_position += earth_position.normalized() * (1 - earth_position.length())
 	

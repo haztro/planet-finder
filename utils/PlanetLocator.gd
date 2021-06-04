@@ -88,20 +88,22 @@ func get_day_number(date) -> float:
 
 	return dn + UT / 24.0
 
+
 func get_heliocentric_ecliptic_coordinates(body) -> Vector3:
 	body["M"] = rev(body["M"])
 	
+	# Compute eccentric anomaly E from mean anomaly M (do two interations for higher accuracy)
 	var E0: float = body["M"] + (180.0 / PI) * body["e"] * sind(body["M"]) * (1 + body["e"] * cosd(body["M"]))
 	var E1: float = E0 - (E0 - (180.0 / PI) * body["e"] * sind(E0) - body["M"]) / (1 - body["e"] * cosd(E0))
 
-	# Compute distance and true anomaly. 
+	# Compute distance and true anomaly
 	var x: float = body["a"] * (cosd(E1) - body["e"])
 	var y: float = body["a"] * sqrt(1 - body["e"] * body["e"]) * sind(E1)
 
-	var r: float = sqrt(x * x + y * y)
-	var v: float = atan2d(y, x)
+	var r: float = sqrt(x * x + y * y) 	# Distance
+	var v: float = atan2d(y, x)			# True anomaly
 	
-	# Body position in heliocentric ecliptic coordinates
+	# Body position in heliocentric ecliptic coordinates (rectangular coords)
 	var x_e: float = r * (cosd(body["N"]) * cosd(v + body["w"]) - sind(body["N"]) * sind(v + body["w"]) * cosd(body["i"]))
 	var y_e: float = r * (sind(body["N"]) * cosd(v + body["w"]) + cosd(body["N"]) * sind(v + body["w"]) * cosd(body["i"]))
 	var z_e: float = r * sind(v + body["w"]) * sind(body["i"])
@@ -123,25 +125,31 @@ func get_RA_decl(day_number: float, ecliptic_coords: Vector3) -> Array:
 
 	sun["M"] = rev(sun["M"])
 	
+	# Compute eccentric anomaly (one iteration is enough here)
 	var E = sun["M"] + (180.0 / PI) * sun["e"] * sind(sun["M"]) * (1 + sun["e"] * cosd(sun["M"]))
 
+	# Compute sun's rectangular coords in plane of the ecliptic (x-axis points toward perihelion)
 	var xv: float = cosd(E) - sun["e"]
 	var yv: float = sqrt(1.0 - sun["e"] * sun["e"]) * sind(E)
 
-	var vs: float = atan2d(yv, xv)
+	# Compute distance and true anomaly
 	var rs: float = sqrt(xv * xv + yv * yv)
-
+	var vs: float = atan2d(yv, xv)
+	
+	# Compute longitude of the sun
 	var lonsun: float = vs + sun["w"]
 
+	# Compute sun's ecliptic rectangular coordinates
 	var xs: float = rs * cosd(lonsun)
 	var ys: float = rs * sind(lonsun)
+	var zs: float = 0.0
 
 	# Add planet position to sun position
 	var new_x: float = xs + x_e
 	var new_y: float = ys + y_e
-	var new_z: float = z_e
+	var new_z: float = zs + z_e
 
-	# ROTATE by 23.4 to get equatorial
+	# ROTATE by 23.4 to get equatorial coords
 	var x_eq: float = new_x
 	var y_eq: float = new_y * cosd(ECLIPTIC_INCLINE) - new_z * sind(ECLIPTIC_INCLINE)
 	var z_eq: float = new_y * sind(ECLIPTIC_INCLINE) + new_z * cosd(ECLIPTIC_INCLINE)
@@ -151,11 +159,9 @@ func get_RA_decl(day_number: float, ecliptic_coords: Vector3) -> Array:
 	var rg: float = sqrt(x_eq * x_eq + y_eq * y_eq + z_eq * z_eq)
 	var decl: float = atan2d(z_eq, sqrt(x_eq * x_eq + y_eq * y_eq))
 
-#	print("%f, %f, %f" % [RA, decl, rg])
 	return [RA, decl]
 	
-#	return get_azimuth_altitude(date, d, RA, decl, latitude, longitude, [x_e, y_e, z_e])
-
+	
 func get_azimuth_altitude(body, date, d: float, RA: float, decl: float, latitude: float, longitude: float) -> Array:
 	# Determine sidereal time,azimuth,altitude. 
 	var ut: float = date["hour"] + date["minute"] / 60.0 + date["second"] / 3600.0
@@ -164,10 +170,14 @@ func get_azimuth_altitude(body, date, d: float, RA: float, decl: float, latitude
 	var sidetime: float = gmst0 + ut + longitude / 15.0
 
 	var hour_angle: float = rev((sidetime*15) - RA)
+	
+	# Convert to rectangular coords. x-axis points to celestial equator in the south, y-axis points
+	# to the horizon in the west, z-axis points to north celestial pole. 
 	var x: float = cosd(hour_angle) * cosd(decl)
 	var y: float = sind(hour_angle) * cosd(decl)
 	var z: float = sind(decl)
 
+	# Rotate about y-axis so that z-axis points to zenith 
 	var xhor: float = x * sind(latitude) - z * cosd(latitude)
 	var yhor: float = y
 	var zhor: float = x * cosd(latitude) + z * sind(latitude)

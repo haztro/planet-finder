@@ -6,4 +6,4 @@ Itch.io page: https://haztro.itch.io/planet-gazer
 
 Blog post: https://haztro.dev/planet-gazer-tool
 
-[alt text](pg.gif)
+[GIF](pg.gif)
